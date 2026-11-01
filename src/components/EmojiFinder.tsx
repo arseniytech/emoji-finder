@@ -4,9 +4,28 @@ import { fetchEmojis, type Emoji } from '../api/emojiApi'
 function EmojiFinder() {
   const [query, setQuery] = useState('')
   const [emojis, setEmojis] = useState<Emoji[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
-    fetchEmojis(query).then((data) => setEmojis(data))
+    let ignore = false
+    setLoading(true)
+    setError('')
+
+    fetchEmojis(query)
+      .then((data) => {
+        if (!ignore) setEmojis(data)
+      })
+      .catch(() => {
+        if (!ignore) setError('Не удалось загрузить эмодзи, проверь что сервер запущен')
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false)
+      })
+
+    return () => {
+      ignore = true
+    }
   }, [query])
 
   return (
@@ -17,6 +36,14 @@ function EmojiFinder() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
+
+      {loading && <p className="status">Загрузка...</p>}
+
+      {!loading && error && <p className="status error">{error}</p>}
+
+      {!loading && !error && emojis.length === 0 && (
+        <p className="status">Эмодзи не найдены</p>
+      )}
 
       {emojis.length > 0 && (
         <div className="cards">

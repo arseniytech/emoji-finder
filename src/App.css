@@ -53,6 +53,17 @@
   outline: none;
 }
 
+.status {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 18px;
+  color: #3F444A;
+}
+
+.status.error {
+  color: #c0392b;
+}
+
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 316px);
