@@ -30,3 +30,25 @@
   line-height: 36px;
   color: rgba(204, 248, 255, 0.75);
 }
+
+.header input {
+  position: absolute;
+  bottom: -28px;
+  width: 820px;
+  padding: 20px 32px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 1px solid #CED4DA;
+  border-radius: 4px;
+  font-size: 24px;
+  line-height: 21px;
+  font-family: inherit;
+}
+
+.header input::placeholder {
+  color: #ABB5BE;
+}
+
+.header input:focus {
+  outline: none;
+}
